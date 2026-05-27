@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projeto Brasil — Lynk & Co em Belo Horizonte</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f3ee;
+    --gold: #c8a84b;
+    --gold-light: #e8c96b;
+    --red: #c0392b;
+    --steel: #1c2b3a;
+    --steel-mid: #2e4057;
+    --muted: #8a8a7a;
+    --accent: #3d6b8c;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 3rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200,168,75,0.15);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: rgba(245,243,238,0.65);
+    font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    position: relative; overflow: hidden;
+    padding: 0 0 5rem 3rem;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(61,107,140,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 20% 80%, rgba(200,168,75,0.12) 0%, transparent 50%),
+      linear-gradient(160deg, #0a0a0a 0%, #1c2b3a 50%, #0a0a0a 100%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image: 
+      linear-gradient(rgba(200,168,75,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,168,75,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-car-img {
+    position: absolute; right: -2%; bottom: 0;
+    width: 58%; max-width: 820px;
+    opacity: 0.92;
+    filter: drop-shadow(-20px 0 80px rgba(61,107,140,0.4));
+    animation: floatCar 6s ease-in-out infinite;
+  }
+  @keyframes floatCar {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-18px); }
+  }
+  .hero-tag {
+    position: relative; z-index: 2;
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-tag::before { content:''; display:block; width:40px; height:1px; background:var(--gold); }
+  h1 {
+    position: relative; z-index: 2;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 8rem);
+    line-height: 0.92;
+    letter-spacing: 0.03em;
+  }
+  h1 span { color: var(--gold); }
+  .hero-sub {
+    position: relative; z-index: 2;
+    font-size: 1.05rem; color: rgba(245,243,238,0.6);
+    max-width: 480px; margin-top: 1.4rem;
+    font-weight: 300; font-style: italic;
+  }
+  .hero-badges {
+    position: relative; z-index: 2;
+    display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;
+  }
+  .badge {
+    padding: 0.4rem 1rem; border: 1px solid rgba(200,168,75,0.4);
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold-light); background: rgba(200,168,75,0.07);
+    border-radius: 2px;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
+  .section-full { max-width: 100%; padding-left: 0; padding-right: 0; }
+
+  .section-label {
+    font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::before { content:''; display:block; width:28px; height:1px; background:var(--gold); }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.9rem, 3.5vw, 3rem);
+    line-height: 1.15; margin-bottom: 1.8rem;
+  }
+  h2 em { color: var(--gold); font-style: italic; }
+
+  p { color: rgba(245,243,238,0.78); max-width: 700px; margin-bottom: 1.1rem; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200,168,75,0.3), transparent);
+    margin: 0 3rem;
+  }
+
+  /* ── PROBLEM SECTION ── */
+  #problema { position: relative; }
+  .problem-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+  }
+  .problem-img-wrap { position: relative; }
+  .problem-img-wrap img {
+    width: 100%; border-radius: 4px;
+    filter: grayscale(30%) contrast(1.1);
+    border: 1px solid rgba(200,168,75,0.15);
+  }
+  .img-caption {
+    font-size: 0.72rem; color: var(--muted);
+    margin-top: 0.5rem; letter-spacing: 0.05em;
+  }
+  .highlight-box {
+    border-left: 3px solid var(--gold);
+    padding: 1.2rem 1.5rem;
+    background: rgba(200,168,75,0.06);
+    margin: 1.5rem 0; border-radius: 0 4px 4px 0;
+  }
+  .highlight-box p { color: var(--white); font-style: italic; margin: 0; }
+
+  /* ── PASSOS PROJETO BRASIL ── */
+  #passos { background: linear-gradient(160deg, var(--steel) 0%, #0f1e2a 100%); padding: 6rem 0; max-width: 100%; }
+  #passos > .inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
+  .steps-track {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
+    background: rgba(200,168,75,0.1); margin-top: 3rem;
+    border: 1px solid rgba(200,168,75,0.1);
+  }
+  .step-card {
+    background: var(--steel); padding: 2rem 1.5rem;
+    position: relative; overflow: hidden;
+    transition: background 0.3s;
+  }
+  .step-card:hover { background: var(--steel-mid); }
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem;
+    color: rgba(200,168,75,0.12); line-height: 1; margin-bottom: 0.8rem;
+  }
+  .step-title {
+    font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.6rem;
+  }
+  .step-desc { font-size: 0.85rem; color: rgba(245,243,238,0.65); line-height: 1.55; }
+  .step-card.active { background: rgba(200,168,75,0.1); border-top: 2px solid var(--gold); }
+
+  /* ── SOLUÇÃO ── */
+  #solucao { position: relative; }
+  .sol-grid { display: grid; grid-template-columns: 5fr 4fr; gap: 4rem; align-items: start; }
+  .brand-box {
+    background: linear-gradient(135deg, rgba(200,168,75,0.08), rgba(61,107,140,0.08));
+    border: 1px solid rgba(200,168,75,0.2);
+    padding: 2.5rem; border-radius: 4px; text-align: center;
+  }
+  .brand-box img { width: 100%; max-width: 260px; filter: brightness(1.1); border-radius: 4px; margin-bottom: 1.5rem; }
+  .brand-facts { list-style: none; text-align: left; margin-top: 1rem; }
+  .brand-facts li {
+    display: flex; gap: 0.7rem; align-items: flex-start;
+    font-size: 0.85rem; color: rgba(245,243,238,0.7);
+    padding: 0.5rem 0; border-bottom: 1px solid rgba(200,168,75,0.1);
+  }
+  .brand-facts li span.dot { color: var(--gold); font-size: 1.1rem; line-height: 1.3; }
+
+  /* ── ANÁLISE — PORTER + OLI ── */
+  #analise { background: #0d0d0d; max-width: 100%; padding: 6rem 0; }
+  #analise > .inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
+  .analysis-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+  .analysis-card {
+    background: var(--steel); border: 1px solid rgba(200,168,75,0.12);
+    border-radius: 4px; padding: 2.5rem; position: relative; overflow: hidden;
+  }
+  .analysis-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--accent));
+  }
+  .analysis-card h3 {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
+    letter-spacing: 0.06em; color: var(--gold-light); margin-bottom: 0.3rem;
+  }
+  .analysis-card .model-sub { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.5rem; }
+  .diamond-list { list-style: none; }
+  .diamond-list li {
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(200,168,75,0.08);
+    font-size: 0.88rem; color: rgba(245,243,238,0.75);
+  }
+  .diamond-list li strong { color: var(--white); display: block; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem; }
+
+  /* ── DADOS / ESTATÍSTICAS ── */
+  #dados { position: relative; }
+  .stats-band {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: rgba(200,168,75,0.1);
+    border: 1px solid rgba(200,168,75,0.1); margin-bottom: 4rem;
+  }
+  .stat-cell {
+    background: var(--black); padding: 2.2rem 1.5rem; text-align: center;
+    transition: background 0.3s;
+  }
+  .stat-cell:hover { background: rgba(200,168,75,0.05); }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 3rem;
+    color: var(--gold); line-height: 1;
+  }
+  .stat-unit { font-size: 1.2rem; color: var(--gold-light); }
+  .stat-label { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.4rem; }
+  .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .data-card {
+    background: var(--steel); border: 1px solid rgba(200,168,75,0.1);
+    border-radius: 4px; overflow: hidden;
+  }
+  .data-card img { width: 100%; height: 200px; object-fit: cover; filter: contrast(1.1) brightness(0.85); }
+  .data-card-body { padding: 1.5rem; }
+  .data-card-body h4 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .data-card-body p { font-size: 0.84rem; color: rgba(245,243,238,0.65); margin: 0; max-width: 100%; }
+
+  /* ── CHART ── */
+  .chart-wrap {
+    background: var(--steel); border: 1px solid rgba(200,168,75,0.1);
+    border-radius: 4px; padding: 2rem; margin-top: 2rem;
+  }
+  .chart-title { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .bar-chart { display: flex; flex-direction: column; gap: 0.7rem; }
+  .bar-row { display: flex; align-items: center; gap: 1rem; }
+  .bar-label { font-size: 0.8rem; color: rgba(245,243,238,0.7); width: 80px; text-align: right; flex-shrink: 0; }
+  .bar-track { flex: 1; background: rgba(255,255,255,0.05); border-radius: 2px; height: 28px; position: relative; overflow: hidden; }
+  .bar-fill {
+    height: 100%; border-radius: 2px;
+    background: linear-gradient(90deg, var(--steel-mid), var(--accent));
+    display: flex; align-items: center; justify-content: flex-end; padding-right: 8px;
+    animation: barGrow 1.2s cubic-bezier(0.22,1,0.36,1) both;
+    transform-origin: left;
+  }
+  .bar-fill.gold { background: linear-gradient(90deg, rgba(200,168,75,0.3), var(--gold)); }
+  @keyframes barGrow { from { width: 0 !important; } }
+  .bar-val { font-size: 0.75rem; color: rgba(10,10,10,0.9); font-weight: 700; }
+
+  /* ── IMAGENS LOCAL/SETOR ── */
+  #local { position: relative; }
+  .img-mosaic {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 280px 280px;
+    gap: 4px; margin-top: 2.5rem;
+  }
+  .mosaic-item { overflow: hidden; position: relative; }
+  .mosaic-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; filter: brightness(0.8) saturate(1.1); }
+  .mosaic-item:hover img { transform: scale(1.06); }
+  .mosaic-item:first-child { grid-row: 1 / 3; }
+  .mosaic-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 1rem; background: linear-gradient(transparent, rgba(10,10,10,0.8));
+    font-size: 0.75rem; color: rgba(245,243,238,0.8); letter-spacing: 0.05em;
+  }
+
+  /* ── CONCLUSÃO ── */
+  #conclusao {
+    background: linear-gradient(135deg, var(--steel) 0%, #0a0a0a 100%);
+    max-width: 100%; padding: 7rem 3rem;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  #conclusao::before {
+    content: 'LYNK & CO'; position: absolute;
+    font-family: 'Bebas Neue', sans-serif; font-size: 18vw;
+    color: rgba(200,168,75,0.03); letter-spacing: 0.05em;
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+    white-space: nowrap; pointer-events: none;
+  }
+  .conclusao-inner { max-width: 760px; margin: 0 auto; position: relative; z-index: 2; }
+  #conclusao h2 { margin: 0 auto 1.5rem; }
+  #conclusao p { margin: 0 auto 1.2rem; max-width: 680px; }
+  .cta-row { display: flex; gap: 1rem; justify-content: center; margin-top: 2.5rem; flex-wrap: wrap; }
+  .btn-primary {
+    padding: 0.85rem 2.2rem; background: var(--gold); color: var(--black);
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    border: none; cursor: pointer; border-radius: 2px; text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    padding: 0.85rem 2.2rem; background: transparent; color: var(--gold);
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    border: 1px solid var(--gold); cursor: pointer; border-radius: 2px; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-outline:hover { background: rgba(200,168,75,0.1); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #060606; padding: 2rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(200,168,75,0.1);
+  }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--gold); letter-spacing: 0.1em; }
+  .footer-note { font-size: 0.72rem; color: var(--muted); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .problem-grid, .sol-grid, .analysis-wrap, .data-grid { grid-template-columns: 1fr; }
+    .steps-track { grid-template-columns: 1fr 1fr; }
+    .stats-band { grid-template-columns: 1fr 1fr; }
+    .img-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .mosaic-item:first-child { grid-row: auto; }
+    .hero-car-img { width: 100%; right: 0; opacity: 0.25; }
+    #conclusao { padding: 5rem 1.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Projeto Brasil</div>
+  <ul class="nav-links">
+    <li><a href="#problema">Problema</a></li>
+    <li><a href="#passos">Passos</a></li>
+    <li><a href="#solucao">Solução</a></li>
+    <li><a href="#analise">Análise</a></li>
+    <li><a href="#dados">Dados</a></li>
+    <li><a href="#conclusao">Conclusão</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="section-full" style="padding: 0;">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <img class="hero-car-img"
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Lynk_%26_Co_01_02.jpg/1280px-Lynk_%26_Co_01_02.jpg"
+    alt="Lynk & Co"
+    onerror="this.style.display='none'">
+  <div style="position:relative;z-index:2;padding:0 3rem 5rem;">
+    <div class="hero-tag">Projeto Brasil · Mercado Automotivo</div>
+    <h1>LYNK <span>&</span> CO<br>ENTRA NO<br>BRASIL</h1>
+    <p class="hero-sub">Uma proposta de internacionalização para Belo Horizonte, Minas Gerais — inovação, tecnologia e mobilidade premium acessível.</p>
+    <div class="hero-badges">
+      <span class="badge">Belo Horizonte · MG</span>
+      <span class="badge">Setor Automobilístico</span>
+      <span class="badge">Grupo Geely · Volvo</span>
+      <span class="badge">Premium Acessível</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PROBLEMA -->
+<section id="problema">
+  <div class="section-label">01 · Problema</div>
+  <div class="problem-grid reveal">
+    <div>
+      <h2>Qual <em>necessidade</em> este projeto pretende resolver?</h2>
+      <p>O mercado automobilístico brasileiro vive uma transformação profunda. Consumidores cada vez mais exigentes buscam veículos tecnológicos, conectados, sustentáveis e com boa relação custo-benefício — mas encontram uma lacuna entre as marcas populares com baixo nível tecnológico e as marcas premium de custo elevado.</p>
+      <div class="highlight-box">
+        <p>"Há um vazio estratégico no segmento <em>premium acessível</em> no Brasil: quem ocupa esse espaço com inovação, conectividade e preço competitivo captura um mercado em rápido crescimento."</p>
+      </div>
+      <p>Belo Horizonte, capital de Minas Gerais, reúne condições únicas: forte cultura automobilística, público de classe média e alta em expansão, infraestrutura adequada e crescente interesse por veículos eletrificados. Entretanto, a cidade carece de uma marca estrangeira que una esses atributos de forma integrada.</p>
+      <p>O <strong style="color:var(--gold)">Projeto Brasil</strong> surge para identificar, analisar e propor a entrada de um empreendimento estrangeiro com alto potencial de impacto positivo — econômico, social e inovador — no mercado brasileiro.</p>
+    </div>
+    <div class="problem-img-wrap reveal">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Belo_Horizonte_Skyline.jpg/1280px-Belo_Horizonte_Skyline.jpg"
+           alt="Belo Horizonte"
+           onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800'">
+      <p class="img-caption">Belo Horizonte — Capital de Minas Gerais, Brasil</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PASSOS -->
+<section id="passos" class="section-full" style="padding:0;">
+  <div class="inner">
+    <div class="section-label reveal">02 · Metodologia</div>
+    <h2 class="reveal">Os <em>cinco passos</em> do Projeto Brasil</h2>
+    <p class="reveal">A proposta segue uma metodologia estruturada para garantir rigor analítico e embasamento teórico na seleção e justificativa do empreendimento estrangeiro a ser trazido ao Brasil.</p>
+    <div class="steps-track reveal">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-title">Escolha da Cidade</div>
+        <div class="step-desc">Seleção de Belo Horizonte como praça estratégica, considerando infraestrutura, perfil econômico e potencial de mercado.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-title">Definição do Setor</div>
+        <div class="step-desc">Identificação do setor automobilístico como área de maior oportunidade e alinhamento com tendências globais de mobilidade.</div>
+      </div>
+      <div class="step-card active">
+        <div class="step-num">03</div>
+        <div class="step-title">Empreendimento Alvo</div>
+        <div class="step-desc">Escolha da Lynk & Co — marca chinesa inovadora do Grupo Geely, ainda sem operação consolidada no Brasil.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <div class="step-title">Análise Teórica</div>
+        <div class="step-desc">Aplicação do Diamante de Porter e do Paradigma Eclético (OLI) para embasar a viabilidade e a estratégia de entrada.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">05</div>
+        <div class="step-title">Conclusão e Impacto</div>
+        <div class="step-desc">Síntese dos resultados esperados: geração de empregos, inovação, aumento da concorrência e crescimento do mercado.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" style="margin-top:0;">
+
+<!-- SOLUÇÃO -->
+<section id="solucao">
+  <div class="section-label reveal">03 · Solução Recomendada</div>
+  <div class="sol-grid">
+    <div class="reveal">
+      <h2>A entrada da <em>Lynk & Co</em> em Belo Horizonte</h2>
+      <p>A Lynk & Co é uma marca de automóveis fundada em 2016, pertencente ao Grupo Geely — o mesmo controlador da Volvo Cars. Com design moderno, forte foco em conectividade e um modelo de negócios inovador baseado em <strong style="color:var(--gold)">assinatura de veículos</strong>, a marca representa exatamente o que o mercado brasileiro ainda não tem.</p>
+      <p>Sua entrada em Belo Horizonte responderia diretamente à lacuna identificada: um veículo tecnológico, com credibilidade internacional (suporte da Volvo), preço acessível para o segmento premium e uma experiência de compra completamente digital e moderna.</p>
+      <div class="highlight-box">
+        <p>O modelo de assinatura da Lynk & Co permite ao consumidor usar o veículo sem as amarras da propriedade tradicional — algo inédito no mercado automotivo brasileiro em larga escala.</p>
+      </div>
+      <p>A escolha se fortalece ainda pelo movimento global das montadoras chinesas: após o sucesso de <strong style="color:var(--gold)">BYD e GWM</strong> no Brasil, o terreno está preparado para uma nova marca chinesa com proposta diferenciada e posicionamento superior.</p>
+    </div>
+    <div class="brand-box reveal">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/2019_Lynk_%26_Co_01_2.0T_AWD_%28China%29_front_8.20.19.jpg/1280px-2019_Lynk_%26_Co_01_2.0T_AWD_%28China%29_front_8.20.19.jpg"
+           alt="Lynk Co 01"
+           onerror="this.style.opacity='0.3'">
+      <ul class="brand-facts">
+        <li><span class="dot">◆</span>Fundação: 2016, Gothenburg/Hangzhou</li>
+        <li><span class="dot">◆</span>Grupo Geely — controlador da Volvo Cars</li>
+        <li><span class="dot">◆</span>Modelos SUV híbridos e elétricos</li>
+        <li><span class="dot">◆</span>Modelo de assinatura de veículos</li>
+        <li><span class="dot">◆</span>Operações na Europa e Ásia</li>
+        <li><span class="dot">◆</span>Design e tecnologia escandinavos</li>
+        <li><span class="dot">◆</span>Sem operação consolidada no Brasil</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ANÁLISE -->
+<section id="analise" class="section-full" style="padding:0;">
+  <div class="inner">
+    <div class="section-label reveal">04 · Análise</div>
+    <h2 class="reveal">Diamante de Porter <em>&</em> Paradigma Eclético (OLI)</h2>
+    <p class="reveal">Dois frameworks teóricos consagrados sustentam a escolha estratégica e explicam por que Belo Horizonte é o destino ideal para a internacionalização da Lynk & Co.</p>
+    <div class="analysis-wrap reveal">
+
+      <!-- PORTER -->
+      <div class="analysis-card">
+        <h3>Diamante de Porter</h3>
+        <div class="model-sub">Michael E. Porter · Vantagem Competitiva das Nações</div>
+        <ul class="diamond-list">
+          <li>
+            <strong>Condições de Fatores</strong>
+            BH conta com mão de obra qualificada, infraestrutura de transporte consolidada e proximidade ao polo industrial de Betim (Fiat), fortalecendo o ecossistema logístico e produtivo.
+          </li>
+          <li>
+            <strong>Condições de Demanda</strong>
+            Crescente demanda por veículos tecnológicos, sustentáveis e conectados, especialmente entre consumidores de classe média e alta — perfil diretamente alinhado à proposta da Lynk & Co.
+          </li>
+          <li>
+            <strong>Indústrias Correlatas e de Apoio</strong>
+            Rede consolidada de concessionárias, serviços automotivos especializados, fornecedores de peças e centros de experiência do cliente na região metropolitana.
+          </li>
+          <li>
+            <strong>Estratégia, Estrutura e Rivalidade</strong>
+            A entrada de BYD e GWM intensificou a concorrência, criando um ambiente competitivo que estimula inovação e diferenciação — terreno fértil para a Lynk & Co se destacar.
+          </li>
+        </ul>
+      </div>
+
+      <!-- OLI -->
+      <div class="analysis-card">
+        <h3>Paradigma OLI</h3>
+        <div class="model-sub">John Dunning · Paradigma Eclético · Ownership · Location · Internalization</div>
+        <ul class="diamond-list">
+          <li>
+            <strong>O — Ownership (Propriedade)</strong>
+            A Lynk & Co possui forte base tecnológica, modelo de assinatura inovador, design moderno e o respaldo do Grupo Geely e da Volvo — vantagens únicas que nenhum concorrente local replica.
+          </li>
+          <li>
+            <strong>L — Location (Localização)</strong>
+            O Brasil, e especialmente BH, oferece mercado em expansão, pouco saturado no segmento premium acessível, com consumidores abertos a novas marcas e alta receptividade às montadoras chinesas.
+          </li>
+          <li>
+            <strong>I — Internalization (Internalização)</strong>
+            Atuar diretamente no país garante controle total sobre a experiência do consumidor, padronização dos serviços, implementação do modelo digital e proteção do know-how proprietário.
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider" style="margin-top:0;">
+
+<!-- DADOS -->
+<section id="dados">
+  <div class="section-label reveal">05 · Dados & Contexto</div>
+  <h2 class="reveal">O mercado em <em>números</em></h2>
+
+  <div class="stats-band reveal">
+    <div class="stat-cell">
+      <div class="stat-num">2,5<span class="stat-unit">M</span></div>
+      <div class="stat-label">Veículos vendidos no Brasil em 2024</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">+83<span class="stat-unit">%</span></div>
+      <div class="stat-label">Crescimento de elétricos e híbridos em 2024</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">2,7<span class="stat-unit">M</span></div>
+      <div class="stat-label">Habitantes em Belo Horizonte</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">+30<span class="stat-unit">%</span></div>
+      <div class="stat-label">Crescimento de marcas chinesas no Brasil (2023–24)</div>
+    </div>
+  </div>
+
+  <!-- BAR CHART: participação de marcas chinesas -->
+  <div class="chart-wrap reveal">
+    <div class="chart-title">Participação de mercado — Montadoras no Brasil (estimativa 2024)</div>
+    <div class="bar-chart">
+      <div class="bar-row">
+        <div class="bar-label">Fiat</div>
+        <div class="bar-track"><div class="bar-fill gold" style="width:23%"><span class="bar-val">23%</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">VW</div>
+        <div class="bar-track"><div class="bar-fill" style="width:18%"><span class="bar-val">18%</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Chevrolet</div>
+        <div class="bar-track"><div class="bar-fill" style="width:13%"><span class="bar-val">13%</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Toyota</div>
+        <div class="bar-track"><div class="bar-fill" style="width:9%"><span class="bar-val">9%</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">BYD</div>
+        <div class="bar-track"><div class="bar-fill gold" style="width:6%"><span class="bar-val">6%</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">GWM</div>
+        <div class="bar-track"><div class="bar-fill" style="width:4%"><span class="bar-val">4%</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label" style="color:var(--gold)">Lynk & Co</div>
+        <div class="bar-track" style="border:1px dashed rgba(200,168,75,0.4)">
+          <div style="padding:0 8px; font-size:0.72rem; color:var(--gold); display:flex; align-items:center; height:100%;">← Oportunidade a conquistar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="data-grid" style="margin-top:2rem;">
+    <div class="data-card reveal">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Belo_Horizonte_e_Pampulha_vistas_do_alto.jpg/1280px-Belo_Horizonte_e_Pampulha_vistas_do_alto.jpg"
+           alt="BH aérea"
+           onerror="this.style.display='none'">
+      <div class="data-card-body">
+        <h4>Belo Horizonte — Polo Econômico</h4>
+        <p>3ª maior cidade do Brasil em PIB, com forte setor de serviços, indústria consolidada e consumidores com alto poder aquisitivo. A região metropolitana abriga mais de 6 milhões de habitantes e é um dos maiores mercados consumidores do país.</p>
+      </div>
+    </div>
+    <div class="data-card reveal">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Lynk_%26_Co_02_Coupe_at_Auto_Shanghai_2019_Front.jpg/1280px-Lynk_%26_Co_02_Coupe_at_Auto_Shanghai_2019_Front.jpg"
+           alt="Lynk Co modelo"
+           onerror="this.style.display='none'">
+      <div class="data-card-body">
+        <h4>Lynk & Co — Portfólio de Produtos</h4>
+        <p>A linha atual inclui os modelos 01, 02 e 03 — SUVs e sedãs com motores híbridos plug-in e elétricos, conectividade 4G integrada, sistemas de direção assistida e plataforma digital de assinatura. Preços na Europa entre €25.000 e €40.000.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCAL / MOSAICO DE IMAGENS -->
+<section id="local" style="padding-top:0;">
+  <div class="section-label reveal">06 · Contexto Visual</div>
+  <h2 class="reveal">Onde o <em>futuro</em> se encontra com o mercado</h2>
+  <div class="img-mosaic reveal">
+    <div class="mosaic-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Belo_Horizonte_Skyline.jpg/1280px-Belo_Horizonte_Skyline.jpg"
+           alt="BH Skyline"
+           onerror="this.src='https://via.placeholder.com/800x560/1c2b3a/c8a84b?text=Belo+Horizonte'">
+      <div class="mosaic-caption">Belo Horizonte — Centro Urbano</div>
+    </div>
+    <div class="mosaic-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Lynk_%26_Co_01_02.jpg/1280px-Lynk_%26_Co_01_02.jpg"
+           alt="Lynk Co"
+           onerror="this.style.background='#1c2b3a'">
+      <div class="mosaic-caption">Lynk & Co 01 — SUV Híbrido</div>
+    </div>
+    <div class="mosaic-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/2019_Lynk_%26_Co_01_2.0T_AWD_%28China%29_front_8.20.19.jpg/1280px-2019_Lynk_%26_Co_01_2.0T_AWD_%28China%29_front_8.20.19.jpg"
+           alt="Lynk Co front"
+           onerror="this.style.background='#2e4057'">
+      <div class="mosaic-caption">Design Escandinavo-Asiático</div>
+    </div>
+    <div class="mosaic-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Belo_Horizonte_by_night.jpg/1280px-Belo_Horizonte_by_night.jpg"
+           alt="BH noite"
+           onerror="this.style.background='#0a0a0a'">
+      <div class="mosaic-caption">BH à Noite — Metrópole Vibrante</div>
+    </div>
+    <div class="mosaic-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Lynk_%26_Co_02_Coupe_at_Auto_Shanghai_2019_Front.jpg/1280px-Lynk_%26_Co_02_Coupe_at_Auto_Shanghai_2019_Front.jpg"
+           alt="Lynk Co 02"
+           onerror="this.style.background='#1c2b3a'">
+      <div class="mosaic-caption">Lynk & Co 02 Coupé</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSÃO -->
+<section id="conclusao" class="section-full" style="padding:0;">
+  <div class="conclusao-inner" style="padding: 7rem 1.5rem;">
+    <div class="section-label reveal" style="justify-content:center;">07 · Conclusão</div>
+    <h2 class="reveal" style="max-width:100%;">A importância do <em>Projeto Brasil</em></h2>
+    <p class="reveal">O Projeto Brasil demonstra que a combinação entre análise criteriosa de mercado, fundamentação teórica robusta e visão estratégica pode identificar oportunidades de internacionalização com alto potencial de impacto real.</p>
+    <p class="reveal">A entrada da <strong style="color:var(--gold)">Lynk & Co em Belo Horizonte</strong> não representa apenas um negócio isolado — é um catalisador para o desenvolvimento do mercado automotivo brasileiro. Ela estimularia a inovação, aumentaria a concorrência, geraria empregos qualificados, expandiria a oferta de veículos eletrificados e aceleraria a transformação digital do setor.</p>
+    <p class="reveal">Sob o olhar do <strong style="color:var(--gold)">Diamante de Porter</strong>, BH oferece o ambiente competitivo ideal. Sob o <strong style="color:var(--gold)">Paradigma OLI</strong>, a Lynk & Co possui todas as vantagens necessárias para uma internacionalização bem-sucedida. A convergência desses dois modelos confirma: esta é uma aposta estratégica fundamentada, oportuna e com elevado potencial de retorno para todos os agentes envolvidos.</p>
+    <div class="cta-row reveal">
+      <a href="#problema" class="btn-primary">Rever a Proposta</a>
+      <a href="#analise" class="btn-outline">Ver Análise Teórica</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Projeto Brasil · Lynk & Co</div>
+  <div class="footer-note">Belo Horizonte, Minas Gerais · Mercado Automobilístico · Análise de Internacionalização</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Smooth active nav
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'var(--gold)' : '';
+    });
+  });
+</script>
+</body>
+</html>
